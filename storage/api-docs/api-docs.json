@@ -482,14 +482,6 @@
                         "schema": {
                             "type": "integer"
                         }
-                    },
-                    {
-                        "name": "parent_id",
-                        "in": "query",
-                        "description": "Parent Id",
-                        "schema": {
-                            "type": "integer"
-                        }
                     }
                 ],
                 "responses": {
@@ -513,16 +505,16 @@
                         "description": "Store Id",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
                         "name": "collection_id",
                         "in": "path",
-                        "description": "Collection Id",
+                        "description": "Collection Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -1018,6 +1010,54 @@
                     },
                     "updated_at": {
                         "schema": "Collection",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CollectionItem": {
+                "properties": {
+                    "id": {
+                        "schema": "CollectionItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "CollectionItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "collection_id": {
+                        "schema": "CollectionItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "position": {
+                        "schema": "CollectionItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "target_type": {
+                        "schema": "CollectionItem",
+                        "type": "string"
+                    },
+                    "target_id": {
+                        "schema": "CollectionItem",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "CollectionItem",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "CollectionItem",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "CollectionItem",
                         "type": "string",
                         "format": "date-time"
                     }

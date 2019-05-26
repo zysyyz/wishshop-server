@@ -61,14 +61,6 @@ class CollectionController extends Controller
      *       type="integer",
      *     ),
      *   ),
-     *   @OA\Parameter(
-     *     description="Parent Id",
-     *     in="query",
-     *     name="parent_id",
-     *     @OA\Schema(
-     *       type="integer",
-     *     ),
-     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="",
@@ -78,12 +70,6 @@ class CollectionController extends Controller
     public function index(Request $request)
     {
         $query = Collection::orderBy('created_at', 'desc');
-
-        $parent_id = $request->input('parent_id');
-
-        if (isset($parent_id) && !empty($parent_id)) {
-            $query->where('parent_id', $parent_id);
-        }
 
         $per_page = $request->input('per_page');
         return jsonPagination(200, $query->paginate($per_page));
@@ -99,14 +85,14 @@ class CollectionController extends Controller
      *     in="path",
      *     name="store_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
-     *     description="Collection Id",
+     *     description="Collection Id (or slug)",
      *     in="path",
      *     name="collection_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -118,8 +104,10 @@ class CollectionController extends Controller
     {
         $include = $request->input('include');
         $data = Collection::with(!$include ? [] : $include)
-            ->where('id', $collection_id)
-            ->orWhere('slug', $collection_id)
+            ->orWhere(function ($query) use ($collection_id) {
+                $query->where('id', $collection_id);
+                $query->orWhere('slug', $collection_id);
+            })
             ->first();
 
         if (!$data) {
