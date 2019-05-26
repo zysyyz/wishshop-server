@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
+use App\Models\Product;
 
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-class OrderController extends Controller
+class ProductController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -35,9 +35,9 @@ class OrderController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/stores/{store_id}/orders",
-     *   summary="Get all Orders",
-     *   tags={"orders"},
+     *   path="/stores/{store_id}/products",
+     *   summary="Get all Products",
+     *   tags={"products"},
      *   @OA\Parameter(
      *     description="Store Id",
      *     in="path",
@@ -71,28 +71,28 @@ class OrderController extends Controller
     {
         $per_page = $request->input('per_page');
 
-        $query = Order::orderBy('created_at', 'desc');
+        $query = Product::orderBy('created_at', 'desc');
         return jsonPagination(200, $query->paginate($per_page));
     }
 
     /**
      * @OA\Get(
-     *   path="/stores/{store_id}/orders/{order_id}",
-     *   summary="Get a specific order",
-     *   tags={"orders"},
+     *   path="/stores/{store_id}/products/{product_id}",
+     *   summary="Get a specific product",
+     *   tags={"products"},
      *   @OA\Parameter(
-     *     description="Store Id",
+     *     description="Store Id (or slug)",
      *     in="path",
      *     name="store_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
-     *     description="Order Id",
+     *     description="Product Id (or slug)",
      *     in="path",
-     *     name="order_id",
+     *     name="product_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -100,12 +100,14 @@ class OrderController extends Controller
      *   ),
      * )
      */
-    public function show(Request $request, $order_id)
+    public function show(Request $request, $product_id)
     {
         $include = $request->input('include');
-        $data = Order::with(!$include ? [] : $include)
-            ->where('id', $order_id)
-            ->orWhere('slug', $order_id)
+        $data = Product::with(!$include ? [] : $include)
+            ->orWhere(function ($query) use ($product_id) {
+                $query->where('id', $product_id);
+                $query->orWhere('slug', $product_id);
+            })
             ->first();
 
         if (!$data) {

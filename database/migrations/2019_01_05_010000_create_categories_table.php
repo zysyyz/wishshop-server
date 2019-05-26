@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
             $table->integer('parent_id')->default(0);               // 父分类Id
+            $table->integer('level')->default(0);                   // 级别
             $table->integer('position')->default(0);                // 位置
             $table->string('slug')->unique()->nullable();           // 缩略名
             $table->string('name');                                 // 名称

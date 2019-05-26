@@ -303,7 +303,7 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -344,7 +344,7 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -353,10 +353,10 @@
                     {
                         "name": "brand_id",
                         "in": "path",
-                        "description": "Brand Id",
+                        "description": "Brand Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -378,10 +378,10 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
@@ -403,9 +403,9 @@
                     {
                         "name": "parent_id",
                         "in": "query",
-                        "description": "Parent Id",
+                        "description": "Parent Id (or slug)",
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -427,19 +427,19 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
                         "name": "category_id",
                         "in": "path",
-                        "description": "Category Id",
+                        "description": "Category Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -461,10 +461,10 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
@@ -533,81 +533,6 @@
                 }
             }
         },
-        "/stores/{store_id}/products": {
-            "get": {
-                "tags": [
-                    "products"
-                ],
-                "summary": "Get all Products",
-                "operationId": "App\\Http\\Controllers\\ProductController::index",
-                "parameters": [
-                    {
-                        "name": "store_id",
-                        "in": "path",
-                        "description": "Store Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "description": "Per page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/stores/{store_id}/products/{product_id}": {
-            "get": {
-                "tags": [
-                    "products"
-                ],
-                "summary": "Get a specific product",
-                "operationId": "App\\Http\\Controllers\\ProductController::show",
-                "parameters": [
-                    {
-                        "name": "store_id",
-                        "in": "path",
-                        "description": "Store Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "product_id",
-                        "in": "path",
-                        "description": "Product Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/stores/{store_id}/orders": {
             "get": {
                 "tags": [
@@ -660,6 +585,40 @@
                     {
                         "name": "store_id",
                         "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_number",
+                        "in": "path",
+                        "description": "Order number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/stores/{store_id}/products": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Get all Products",
+                "operationId": "App\\Http\\Controllers\\ProductController::index",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
                         "description": "Store Id",
                         "required": true,
                         "schema": {
@@ -667,12 +626,53 @@
                         }
                     },
                     {
-                        "name": "order_id",
-                        "in": "path",
-                        "description": "Order Id",
-                        "required": true,
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/stores/{store_id}/products/{product_id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Get a specific product",
+                "operationId": "App\\Http\\Controllers\\ProductController::show",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Product Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],

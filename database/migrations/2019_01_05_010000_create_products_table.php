@@ -18,11 +18,14 @@ class CreateProductsTable extends Migration
             $table->integer('store_id')->nullable();                // 商店Id
             $table->integer('brand_id')->nullable();                // 品牌Id
             $table->string('brand_name')->nullable();               // 品牌名称
+            $table->integer('category_id')->nullable();             // 分类Id
             $table->string('slug')->unique()->nullable();           // 缩略名
             $table->string('name');                                 // 名称
             $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
             $table->string('description')->nullable();              // 描述
             $table->string('sku')->nullable();                      // SKU
+            $table->double('price')->nullable();                    // 价格
+            $table->double('original_price')->nullable();           // 原价
             $table->softDeletes();
             $table->timestamps();
         });

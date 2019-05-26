@@ -39,35 +39,29 @@ class CategoryController extends Controller
      *   summary="Get all Categories",
      *   tags={"categories"},
      *   @OA\Parameter(
-     *     description="Store Id",
+     *     description="Store Id (or slug)",
      *     in="path",
      *     name="store_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
      *     description="Page",
      *     in="query",
      *     name="page",
-     *     @OA\Schema(
-     *       type="integer",
-     *     ),
+     *     @OA\Schema(type="integer"),
      *   ),
      *   @OA\Parameter(
      *     description="Per page",
      *     in="query",
      *     name="per_page",
-     *     @OA\Schema(
-     *       type="integer",
-     *     ),
+     *     @OA\Schema(type="integer"),
      *   ),
      *   @OA\Parameter(
-     *     description="Parent Id",
+     *     description="Parent Id (or slug)",
      *     in="query",
      *     name="parent_id",
-     *     @OA\Schema(
-     *       type="integer",
-     *     ),
+     *     @OA\Schema(type="string"),
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -77,7 +71,10 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Category::orderBy('created_at', 'desc');
+        $query = Category::whereRaw('1=1')
+            ->orderBy('parent_id', 'asc')
+            ->orderBy('position', 'asc')
+            ->orderBy('created_at', 'desc');
 
         $parent_id = $request->input('parent_id');
 
@@ -95,18 +92,18 @@ class CategoryController extends Controller
      *   summary="Get a specific category",
      *   tags={"categories"},
      *   @OA\Parameter(
-     *     description="Store Id",
+     *     description="Store Id (or slug)",
      *     in="path",
      *     name="store_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
-     *     description="Category Id",
+     *     description="Category Id (or slug)",
      *     in="path",
      *     name="category_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -118,8 +115,10 @@ class CategoryController extends Controller
     {
         $include = $request->input('include');
         $data = Category::with(!$include ? [] : $include)
-            ->where('id', $category_id)
-            ->orWhere('slug', $category_id)
+            ->orWhere(function ($query) use ($category_id) {
+                $query->where('id', $category_id);
+                $query->orWhere('slug', $category_id);
+            })
             ->first();
 
         if (!$data) {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Product;
 
 use Illuminate\Database\Seeder;
@@ -14,8 +15,24 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::truncate();
-        if (env('APP_ENV') == 'local') {
-            factory(Product::class, 12)->create();
+
+        $path = 'database/seeds/yslbeauty-products.json';
+        $products = json_decode(file_get_contents($path), true);
+
+        foreach ($products as $key => $value) {
+            if (isset($value['category_slug'])) {
+                $category = Category::where('slug', $value['category_slug'])->first();
+                $value['category_id'] = $category->id;
+                unset($value['category_slug']);
+            }
+
+            Product::updateOrCreate(
+                [
+                    'store_id' => 1,
+                    'slug' => $value['slug'],
+                ],
+                $value
+            );
         }
     }
 }

@@ -39,11 +39,11 @@ class CollectionController extends Controller
      *   summary="Get all Collections",
      *   tags={"collections"},
      *   @OA\Parameter(
-     *     description="Store Id",
+     *     description="Store Id (or slug)",
      *     in="path",
      *     name="store_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
      *     description="Page",

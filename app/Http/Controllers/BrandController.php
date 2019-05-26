@@ -39,7 +39,7 @@ class BrandController extends Controller
      *   summary="Get all Brands",
      *   tags={"brands"},
      *   @OA\Parameter(
-     *     description="Store Id",
+     *     description="Store Id (or slug)",
      *     in="path",
      *     name="store_id",
      *     required=true,
@@ -49,17 +49,13 @@ class BrandController extends Controller
      *     description="Page",
      *     in="query",
      *     name="page",
-     *     @OA\Schema(
-     *       type="integer",
-     *     ),
+     *     @OA\Schema(type="integer"),
      *   ),
      *   @OA\Parameter(
      *     description="Per page",
      *     in="query",
      *     name="per_page",
-     *     @OA\Schema(
-     *       type="integer",
-     *     ),
+     *     @OA\Schema(type="integer"),
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -83,18 +79,18 @@ class BrandController extends Controller
      *   summary="Get a specific brand",
      *   tags={"brands"},
      *   @OA\Parameter(
-     *     description="Store Id",
+     *     description="Store Id (or slug)",
      *     in="path",
      *     name="store_id",
      *     required=true,
      *     @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
-     *     description="Brand Id",
+     *     description="Brand Id (or slug)",
      *     in="path",
      *     name="brand_id",
      *     required=true,
-     *     @OA\Schema(type="integer")
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
      *     response=200,
