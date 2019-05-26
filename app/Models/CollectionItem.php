@@ -6,20 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @OA\Schema(schema="Collection", type="object")
+ * @OA\Schema(schema="CollectionItem", type="object")
  * @OA\Property(
  *   property="id",
  *   type="integer",
  *   format="int64",
  * )
  * @OA\Property(
- *   property="parent_id",
+ *   property="store_id",
  *   type="integer",
  *   format="int64",
  * )
  * @OA\Property(
- *   property="slug",
- *   type="string",
+ *   property="collection_id",
+ *   type="integer",
+ *   format="int64",
  * )
  * @OA\Property(
  *   property="position",
@@ -27,15 +28,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   format="int64",
  * )
  * @OA\Property(
- *   property="name",
+ *   property="target_type",
  *   type="string",
  * )
  * @OA\Property(
- *   property="image_url",
- *   type="string",
- * )
- * @OA\Property(
- *   property="description",
+ *   property="target_id",
  *   type="string",
  * )
  * @OA\Property(
@@ -54,7 +51,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   format="date-time",
  * )
  */
-class Collection extends Model
+class CollectionItem extends Model
 {
     use SoftDeletes;
 
@@ -64,12 +61,12 @@ class Collection extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id',
-        'slug',
+        'store_id',
+        'collection_id',
         'position',
-        'name',
         'image_url',
-        'description',
+        'target_type',
+        'target_id',
     ];
 
     /**
@@ -80,9 +77,4 @@ class Collection extends Model
     protected $hidden = [
         'deleted_at',
     ];
-
-    public function items()
-    {
-        return $this->hasMany('App\Models\CollectionItem');
-    }
 }

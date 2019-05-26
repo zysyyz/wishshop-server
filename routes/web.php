@@ -27,6 +27,8 @@ $router->get('stores/{store_id}/brands'                     , 'BrandController@i
 $router->get('stores/{store_id}/brands/{brand_id}'          , 'BrandController@show');
 $router->get('stores/{store_id}/categories'                 , 'CategoryController@index');
 $router->get('stores/{store_id}/categories/{category_id}'   , 'CategoryController@show');
+$router->get('stores/{store_id}/collections'                , 'CollectionController@index');
+$router->get('stores/{store_id}/collections/{collection_id}', 'CollectionController@show');
 $router->get('stores/{store_id}/products'                   , 'ProductController@index');
 $router->get('stores/{store_id}/products/{product_id}'      , 'ProductController@show');
 $router->get('stores/{store_id}/orders'                     , 'OrderController@index');

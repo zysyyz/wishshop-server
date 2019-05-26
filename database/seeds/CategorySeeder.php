@@ -24,7 +24,7 @@ class CategorySeeder extends Seeder
         $topLevelPosition = -1;
         foreach ($categories as $key => $value) {
             $position = 0;
-            if (isset($value['parent_slug'])) {
+            if (!isset($value['parent_slug'])) {
                 $topLevelPosition += 1;
 
                 $position = $topLevelPosition;
