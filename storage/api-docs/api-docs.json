@@ -611,10 +611,10 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
@@ -629,6 +629,14 @@
                         "name": "per_page",
                         "in": "query",
                         "description": "Per page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "Category Id",
                         "schema": {
                             "type": "integer"
                         }
