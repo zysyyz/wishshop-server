@@ -71,7 +71,9 @@ class CollectionController extends Controller
     {
 
         $include = $request->input('include');
+
         $query = Collection::with(!$include ? [] : $include)
+            ->orderBy('position', 'asc')
             ->orderBy('created_at', 'desc');
 
         $per_page = $request->input('per_page');

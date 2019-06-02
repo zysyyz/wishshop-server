@@ -19,13 +19,18 @@ class CollectionSeeder extends Seeder
     {
         $faker = Faker::create();
         Collection::truncate();
+        CollectionItem::truncate();
 
         $path = 'database/seeds/yslbeauty-collections.json';
         $collections = json_decode(file_get_contents($path), true);
 
+        $position = -1;
         foreach ($collections as $key => $value) {
+            $position += 1;
             $items = $value['items'];
             unset($value['items']);
+
+            $value = array_merge($value, ['position' => $position]);
 
             $collection = Collection::updateOrCreate(
                 [
@@ -35,14 +40,17 @@ class CollectionSeeder extends Seeder
                 $value
             );
 
+
+            $itemPosition = -1;
             foreach ($items as $item) {
+                $itemPosition += 1;
                 $item['target_id'] = 0;
                 if (isset($item['target_slug'])) {
                     if ($item['target_slug'] == 'product') {
                         $product = Product::where('slug', 'like', $item['target_slug'].'%')->first();
 
                         if (!$product) {
-                            continue;
+                            break;
                         }
 
                         $item['target_id'] = $product->id;
@@ -50,7 +58,7 @@ class CollectionSeeder extends Seeder
                         $category = Category::where('slug', 'like', $item['target_slug'].'%')->first();
 
                         if (!$category) {
-                            continue;
+                            break;
                         }
 
                         $item['target_id'] = $category->id;
@@ -62,16 +70,10 @@ class CollectionSeeder extends Seeder
                     'store_id' => 1,
                     'collection_id' => $collection->id,
                     'target_id' => $item['target_id'],
+                    'position' => $itemPosition,
                 ]);
 
-                CollectionItem::updateOrCreate(
-                    [
-                        'store_id' => 1,
-                        'collection_id' => $collection->id,
-                        'target_id' => $item['target_id'],
-                    ],
-                    $item
-                );
+                CollectionItem::create($item);
             }
         }
     }

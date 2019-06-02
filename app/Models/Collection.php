@@ -83,6 +83,8 @@ class Collection extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\CollectionItem');
+        return $this->hasMany('App\Models\CollectionItem')
+            ->orderBy('position', 'asc')
+            ->orderBy('created_at', 'desc');
     }
 }
