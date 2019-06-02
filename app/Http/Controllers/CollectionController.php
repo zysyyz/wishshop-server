@@ -69,7 +69,10 @@ class CollectionController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Collection::orderBy('created_at', 'desc');
+
+        $include = $request->input('include');
+        $query = Collection::with(!$include ? [] : $include)
+            ->orderBy('created_at', 'desc');
 
         $per_page = $request->input('per_page');
         return jsonPagination(200, $query->paginate($per_page));

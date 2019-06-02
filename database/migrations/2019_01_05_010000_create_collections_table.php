@@ -17,7 +17,7 @@ class CreateCollectionsTable extends Migration
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
             $table->string('slug')->unique()->nullable();           // 缩略名
-            $table->string('name');                                 // 名称
+            $table->string('name')->nullable();                     // 名称
             $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
             $table->string('description')->nullable();              // 描述
             $table->string('status')->default('draft');             // 状态 [draft, published]

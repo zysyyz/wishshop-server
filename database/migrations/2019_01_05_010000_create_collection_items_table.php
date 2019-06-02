@@ -18,7 +18,9 @@ class CreateCollectionItemsTable extends Migration
             $table->integer('store_id')->nullable();                // 商店Id
             $table->integer('collection_id')->nullable();           // 集合Id
             $table->integer('position')->default(0);                // 位置
+            $table->string('title')->nullable();                    // 标题
             $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
+            $table->string('description')->nullable();              // 描述
             $table->string('target_type')->nullable();              // 目标类型 [category, product]
             $table->string('target_id')->nullable();                // 目标Id
             $table->softDeletes();

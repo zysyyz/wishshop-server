@@ -23,31 +23,38 @@ class CollectionSeeder extends Seeder
         $path = 'database/seeds/yslbeauty-collections.json';
         $collections = json_decode(file_get_contents($path), true);
 
-        // print_r($collections);
-
         foreach ($collections as $key => $value) {
             $items = $value['items'];
             unset($value['items']);
-
-            print_r($value);
 
             $collection = Collection::updateOrCreate(
                 [
                     'store_id' => 1,
                     'slug' => $value['slug'],
                 ],
-                array_merge($value, ['name' => 'NO NAME'])
+                $value
             );
 
             foreach ($items as $item) {
+                $item['target_id'] = 0;
                 if (isset($item['target_slug'])) {
-                    $product = Product::where('slug', 'like', $item['target_slug'].'%')->first();
+                    if ($item['target_slug'] == 'product') {
+                        $product = Product::where('slug', 'like', $item['target_slug'].'%')->first();
 
-                    if (!$product) {
-                        continue;
+                        if (!$product) {
+                            continue;
+                        }
+
+                        $item['target_id'] = $product->id;
+                    } else if ($item['target_slug'] == 'category') {
+                        $category = Category::where('slug', 'like', $item['target_slug'].'%')->first();
+
+                        if (!$category) {
+                            continue;
+                        }
+
+                        $item['target_id'] = $category->id;
                     }
-
-                    $item['target_id'] = $product->id;
                     unset($item['target_slug']);
                 }
 
@@ -56,8 +63,6 @@ class CollectionSeeder extends Seeder
                     'collection_id' => $collection->id,
                     'target_id' => $item['target_id'],
                 ]);
-
-                print_r($item);
 
                 CollectionItem::updateOrCreate(
                     [
