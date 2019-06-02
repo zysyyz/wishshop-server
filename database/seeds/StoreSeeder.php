@@ -14,8 +14,16 @@ class StoreSeeder extends Seeder
     public function run()
     {
         Store::truncate();
-        if (env('APP_ENV') == 'local') {
-            factory(Store::class, 12)->create();
+        $path = 'database/seeds/yslbeauty-stores.json';
+        $stores = json_decode(file_get_contents($path), true);
+
+        foreach ($stores as $key => $value) {
+            $store = Store::updateOrCreate(
+                [
+                    'slug' => $value['slug'],
+                ],
+                $value
+            );
         }
     }
 }

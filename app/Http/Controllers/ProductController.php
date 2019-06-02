@@ -95,6 +95,14 @@ class ProductController extends Controller
             });
         }
 
+        $q =  $request->input('q');
+        if ($q) {
+            $query->where(function ($subquery) use ($q) {
+                $subquery->orWhere('name', 'like', '%'.$q.'%');
+                $subquery->orWhere('summary', 'like', '%'.$q.'%');
+            });
+        }
+
         $per_page = $request->input('per_page');
         return jsonPagination(200, $query->paginate($per_page));
     }

@@ -33,8 +33,9 @@ $router->get('stores/{store_id}/products'                   , 'ProductController
 $router->get('stores/{store_id}/products/{product_id}'      , 'ProductController@show');
 $router->get('stores/{store_id}/orders'                     , 'OrderController@index');
 $router->post('stores/{store_id}/orders'                    , 'OrderController@store');
-$router->get('stores/{store_id}/orders/{order_number}'      , 'OrderController@show');
-$router->patch('stores/{store_id}/orders/{order_number}'    , 'OrderController@update');
+$router->get('stores/{store_id}/orders/{number}'            , 'OrderController@show');
+$router->patch('stores/{store_id}/orders/{number}'          , 'OrderController@update');
+$router->get('stores/{store_id}/orders/{number}/items'      , 'OrderLineItemController@index');
 
 $router->group([
     'namespace'  => 'Admin',

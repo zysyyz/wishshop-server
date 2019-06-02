@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('store_id')->nullable();                // 商店Id
+            $table->integer('store_id');                            // 商店Id
             $table->integer('brand_id')->nullable();                // 品牌Id
             $table->string('brand_name')->nullable();               // 品牌名称
             $table->integer('category_id')->nullable();             // 分类Id
@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->string('summary')->nullable();                  // 概述
             $table->string('description')->nullable();              // 描述
             $table->string('sku')->nullable();                      // SKU
-            $table->double('price')->nullable();                    // 价格
+            $table->double('price')->default(0);                    // 价格
             $table->double('original_price')->nullable();           // 原价
             $table->softDeletes();
             $table->timestamps();

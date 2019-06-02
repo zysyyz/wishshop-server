@@ -20,9 +20,5 @@ class BrandSeeder extends Seeder
             ['id' => 2, 'name' => '品牌2', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
         DB::table('brands')->insert($brands);
-
-        if (env('APP_ENV') == 'local') {
-            factory(Brand::class, 12)->create();
-        }
     }
 }

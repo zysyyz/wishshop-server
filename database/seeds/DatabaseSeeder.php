@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         //     ['id' => 2, 'name' => '品牌2', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         // ];
 
-        $this->call(BrandSeeder::class);
-        $this->call(CategorySeeder::class);
+        // $this->call(BrandSeeder::class);
+        // $this->call(CategorySeeder::class);
         $this->call(CollectionSeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(StoreSeeder::class);
-        $this->call(UserSeeder::class);
+        // $this->call(ProductSeeder::class);
+        // $this->call(StoreSeeder::class);
+        // $this->call(UserSeeder::class);
     }
 }

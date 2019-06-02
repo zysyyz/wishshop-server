@@ -536,10 +536,10 @@
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
@@ -563,10 +563,15 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
             }
         },
-        "/stores/{store_id}/orders/{order_id}": {
+        "/stores/{store_id}/orders/{number}": {
             "get": {
                 "tags": [
                     "orders"
@@ -584,7 +589,7 @@
                         }
                     },
                     {
-                        "name": "order_number",
+                        "name": "number",
                         "in": "path",
                         "description": "Order number",
                         "required": true,
@@ -597,7 +602,67 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            }
+        },
+        "/stores/{store_id}/orders/{number}/items": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Get all Items",
+                "operationId": "App\\Http\\Controllers\\OrderLineItemController::index",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "number",
+                        "in": "path",
+                        "description": "Order number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
             }
         },
         "/stores/{store_id}/products": {
@@ -1072,6 +1137,128 @@
                 },
                 "type": "object"
             },
+            "Order": {
+                "properties": {
+                    "id": {
+                        "schema": "Order",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "Order",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "Order",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "number": {
+                        "schema": "Order",
+                        "type": "string"
+                    },
+                    "reference_number": {
+                        "schema": "Order",
+                        "type": "string"
+                    },
+                    "subtotal": {
+                        "schema": "Order",
+                        "type": "number"
+                    },
+                    "total": {
+                        "schema": "Order",
+                        "type": "number"
+                    },
+                    "status": {
+                        "schema": "Order",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "Order",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "Order",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "Order",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "OrderLineItem": {
+                "properties": {
+                    "id": {
+                        "schema": "OrderLineItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "OrderLineItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "OrderLineItem",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "purchase_type": {
+                        "schema": "OrderLineItem",
+                        "type": "string"
+                    },
+                    "purchase_id": {
+                        "schema": "OrderLineItem",
+                        "type": "string"
+                    },
+                    "label": {
+                        "schema": "OrderLineItem",
+                        "type": "string"
+                    },
+                    "price": {
+                        "schema": "OrderLineItem",
+                        "type": "number"
+                    },
+                    "original_price": {
+                        "schema": "OrderLineItem",
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "schema": "OrderLineItem",
+                        "type": "number"
+                    },
+                    "subtotal": {
+                        "schema": "OrderLineItem",
+                        "type": "number"
+                    },
+                    "total": {
+                        "schema": "OrderLineItem",
+                        "type": "number"
+                    },
+                    "deleted_at": {
+                        "schema": "OrderLineItem",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "OrderLineItem",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "OrderLineItem",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "Product": {
                 "properties": {
                     "id": {
@@ -1344,6 +1531,10 @@
         },
         {
             "name": "products",
+            "description": ""
+        },
+        {
+            "name": "orders",
             "description": ""
         }
     ]

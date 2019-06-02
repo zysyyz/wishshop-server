@@ -32,4 +32,8 @@
  *     name="products",
  *     description="",
  * )
+ * @OA\Tag(
+ *     name="orders",
+ *     description="",
+ * )
  */

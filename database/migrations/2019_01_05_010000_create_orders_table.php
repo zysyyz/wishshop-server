@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('store_id')->nullable();                // 商店Id
+            $table->integer('store_id');                            // 商店Id
             $table->integer('user_id');                             // 用户Id
             $table->string('number')->nullable();                   // 订单号
             $table->string('reference_number')->nullable();         // 参考编号
