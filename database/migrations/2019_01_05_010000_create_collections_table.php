@@ -20,7 +20,8 @@ class CreateCollectionsTable extends Migration
             $table->integer('position')->default(0);                // 位置
             $table->string('name')->nullable();                     // 名称
             $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
-            $table->string('description')->nullable();              // 描述
+            $table->text('description')->nullable();                // 描述
+            $table->string('view_by')->nullable();                  // 显示为 [carousel]
             $table->string('status')->default('draft');             // 状态 [draft, published]
             $table->softDeletes();
             $table->timestamps();

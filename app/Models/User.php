@@ -174,10 +174,4 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
         unset($params['avatar_url']);
         unset($params['use_gravatar']);
     }
-
-    public function settings()
-    {
-        return $this->hasMany('App\Models\UserSetting')
-            ->select('user_id', 'type', 'key', 'value');
-    }
 }

@@ -1045,7 +1045,7 @@
                         "type": "integer",
                         "format": "int64"
                     },
-                    "parent_id": {
+                    "store_id": {
                         "schema": "Collection",
                         "type": "integer",
                         "format": "int64"
@@ -1068,6 +1068,14 @@
                         "type": "string"
                     },
                     "description": {
+                        "schema": "Collection",
+                        "type": "string"
+                    },
+                    "view_by": {
+                        "schema": "Collection",
+                        "type": "string"
+                    },
+                    "status": {
                         "schema": "Collection",
                         "type": "string"
                     },
@@ -1131,6 +1139,57 @@
                     },
                     "updated_at": {
                         "schema": "CollectionItem",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Content": {
+                "properties": {
+                    "id": {
+                        "schema": "Content",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "Content",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "target_type": {
+                        "schema": "Content",
+                        "type": "string"
+                    },
+                    "target_id": {
+                        "schema": "Content",
+                        "type": "string"
+                    },
+                    "position": {
+                        "schema": "Content",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "type": {
+                        "schema": "Content",
+                        "type": "string"
+                    },
+                    "content": {
+                        "schema": "Content",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "Content",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "Content",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "Content",
                         "type": "string",
                         "format": "date-time"
                     }

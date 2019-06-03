@@ -9,10 +9,6 @@
  *     description="",
  * )
  * @OA\Tag(
- *     name="user_settings",
- *     description="",
- * )
- * @OA\Tag(
  *     name="stores",
  *     description="",
  * )

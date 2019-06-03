@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollectionItemsTable extends Migration
+class CreateContentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateCollectionItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('collection_items', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
-            $table->integer('collection_id')->nullable();           // 集合Id
             $table->string('target_type')->nullable();              // 目标类型 [category, product]
             $table->string('target_id')->nullable();                // 目标Id
             $table->integer('position')->default(0);                // 位置
-            $table->string('title')->nullable();                    // 标题
-            $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
-            $table->text('description')->nullable();                // 描述
+            $table->string('type')->nullable();                     // 类型
+            $table->string('content')->nullable();                  // 内容
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +33,6 @@ class CreateCollectionItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collection_items');
+        Schema::dropIfExists('contents');
     }
 }

@@ -103,7 +103,7 @@ class BrandController extends Controller
         $include = $request->input('include');
         $data = Brand::with(!$include ? [] : $include)
             ->where('store_id', $store_id)
-            ->orWhere(function ($query) use ($brand_id) {
+            ->where(function ($query) use ($brand_id) {
                 $query->where('id', $brand_id);
                 $query->orWhere('slug', $brand_id);
             })

@@ -115,7 +115,7 @@ class CategoryController extends Controller
     {
         $include = $request->input('include');
         $data = Category::with(!$include ? [] : $include)
-            ->orWhere(function ($query) use ($category_id) {
+            ->where(function ($query) use ($category_id) {
                 $query->where('id', $category_id);
                 $query->orWhere('slug', $category_id);
             })

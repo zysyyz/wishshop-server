@@ -63,10 +63,10 @@ class CollectionItem extends Model
     protected $fillable = [
         'store_id',
         'collection_id',
-        'position',
-        'image_url',
         'target_type',
         'target_id',
+        'position',
+        'image_url',
     ];
 
     /**

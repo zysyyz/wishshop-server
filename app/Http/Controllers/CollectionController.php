@@ -109,7 +109,7 @@ class CollectionController extends Controller
     {
         $include = $request->input('include');
         $data = Collection::with(!$include ? [] : $include)
-            ->orWhere(function ($query) use ($collection_id) {
+            ->where(function ($query) use ($collection_id) {
                 $query->where('id', $collection_id);
                 $query->orWhere('slug', $collection_id);
             })

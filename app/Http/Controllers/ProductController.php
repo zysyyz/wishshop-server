@@ -142,7 +142,7 @@ class ProductController extends Controller
         $include = $request->input('include');
         $data = Product::with(!$include ? [] : $include)
             ->where('store_id', $store_id)
-            ->orWhere(function ($query) use ($product_id) {
+            ->where(function ($query) use ($product_id) {
                 $query->where('id', $product_id);
                 $query->orWhere('slug', $product_id);
             })

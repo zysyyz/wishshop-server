@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   format="int64",
  * )
  * @OA\Property(
- *   property="parent_id",
+ *   property="store_id",
  *   type="integer",
  *   format="int64",
  * )
@@ -36,6 +36,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * )
  * @OA\Property(
  *   property="description",
+ *   type="string",
+ * )
+ * @OA\Property(
+ *   property="view_by",
+ *   type="string",
+ * )
+ * @OA\Property(
+ *   property="status",
  *   type="string",
  * )
  * @OA\Property(
@@ -64,12 +72,14 @@ class Collection extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id',
+        'store_id',
         'slug',
         'position',
         'name',
         'image_url',
         'description',
+        'view_by',
+        'status',
     ];
 
     /**

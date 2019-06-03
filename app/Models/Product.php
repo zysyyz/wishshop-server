@@ -90,4 +90,13 @@ class Product extends Model
     protected $hidden = [
         'deleted_at',
     ];
+
+    public function contents()
+    {
+        return $this->hasMany('App\Models\Content', 'target_id')
+            ->where('target_type', 'product')
+            ->orderBy('position', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->select('id', 'store_id', 'target_type', 'target_id', 'position', 'type', 'content');
+    }
 }

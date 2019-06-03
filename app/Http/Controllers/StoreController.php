@@ -90,7 +90,7 @@ class StoreController extends Controller
     {
         $include = $request->input('include');
         $data = Store::with(!$include ? [] : $include)
-            ->orWhere(function ($query) use ($store_id) {
+            ->where(function ($query) use ($store_id) {
                 $query->where('id', $store_id);
                 $query->orWhere('slug', $store_id);
             })

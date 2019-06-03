@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('name');                                 // 名称
             $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
             $table->string('summary')->nullable();                  // 概述
-            $table->string('description')->nullable();              // 描述
+            $table->text('description')->nullable();                // 描述
             $table->string('sku')->nullable();                      // SKU
             $table->double('price')->default(0);                    // 价格
             $table->double('original_price')->nullable();           // 原价

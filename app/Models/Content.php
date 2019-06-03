@@ -6,28 +6,36 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @OA\Schema(schema="UserSetting", type="object")
+ * @OA\Schema(schema="Content", type="object")
  * @OA\Property(
  *   property="id",
  *   type="integer",
  *   format="int64",
  * )
  * @OA\Property(
- *   property="user_id",
+ *   property="store_id",
+ *   type="integer",
+ *   format="int64",
+ * )
+ * @OA\Property(
+ *   property="target_type",
+ *   type="string",
+ * )
+ * @OA\Property(
+ *   property="target_id",
+ *   type="string",
+ * )
+ * @OA\Property(
+ *   property="position",
  *   type="integer",
  *   format="int64",
  * )
  * @OA\Property(
  *   property="type",
  *   type="string",
- *   enum={"string", "number", "bool"},
  * )
  * @OA\Property(
- *   property="key",
- *   type="string",
- * )
- * @OA\Property(
- *   property="value",
+ *   property="content",
  *   type="string",
  * )
  * @OA\Property(
@@ -46,7 +54,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   format="date-time",
  * )
  */
-class UserSetting extends Model
+class Content extends Model
 {
     use SoftDeletes;
 
@@ -56,10 +64,12 @@ class UserSetting extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'store_id',
+        'target_type',
+        'target_id',
+        'position',
         'type',
-        'key',
-        'value',
+        'content',
     ];
 
     /**
@@ -68,7 +78,6 @@ class UserSetting extends Model
      * @var array
      */
     protected $hidden = [
-        'user_id',
         'deleted_at',
     ];
 }
