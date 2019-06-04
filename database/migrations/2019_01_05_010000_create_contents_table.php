@@ -16,11 +16,11 @@ class CreateContentsTable extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
-            $table->string('target_type')->nullable();              // 目标类型 [category, product]
-            $table->string('target_id')->nullable();                // 目标Id
+            $table->integer('product_id')->nullable();              // 商品Id
             $table->integer('position')->default(0);                // 位置
             $table->string('type')->nullable();                     // 类型
             $table->string('content')->nullable();                  // 内容
+            $table->json('meta')->nullable();                       // 元数据
             $table->softDeletes();
             $table->timestamps();
         });

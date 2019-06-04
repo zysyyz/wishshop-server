@@ -45,8 +45,7 @@ class ProductSeeder extends Seeder
                 $contentPosition += 1;
                 $content = array_merge($value, [
                     'store_id' => 1,
-                    'target_type' => 'product',
-                    'target_id' => $product->id,
+                    'product_id' => $product->id,
                     'position' => $contentPosition,
                 ]);
                 Content::create($content);

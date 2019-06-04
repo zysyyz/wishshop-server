@@ -93,10 +93,9 @@ class Product extends Model
 
     public function contents()
     {
-        return $this->hasMany('App\Models\Content', 'target_id')
-            ->where('target_type', 'product')
+        return $this->hasMany('App\Models\Content')
             ->orderBy('position', 'asc')
             ->orderBy('created_at', 'desc')
-            ->select('id', 'store_id', 'target_type', 'target_id', 'position', 'type', 'content');
+            ->select('id', 'store_id', 'product_id', 'position', 'type', 'content', 'meta');
     }
 }

@@ -59,6 +59,15 @@ class Content extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'meta' => 'object',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
