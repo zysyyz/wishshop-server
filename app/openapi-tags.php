@@ -29,6 +29,10 @@
  *     description="",
  * )
  * @OA\Tag(
+ *     name="addresses",
+ *     description="",
+ * )
+ * @OA\Tag(
  *     name="orders",
  *     description="",
  * )

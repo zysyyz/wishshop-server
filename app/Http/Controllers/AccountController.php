@@ -41,7 +41,7 @@ class AccountController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/account/register",
+     *   path="/accounts/register",
      *   tags={"account"},
      *   @OA\RequestBody(
      *     required=true,
@@ -103,7 +103,7 @@ class AccountController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/account/login",
+     *   path="/accounts/login",
      *   tags={"account"},
      *   @OA\RequestBody(
      *     required=true,
@@ -157,7 +157,7 @@ class AccountController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/account/logout",
+     *   path="/accounts/logout",
      *   tags={"account"},
      *   @OA\Response(
      *     response=200,

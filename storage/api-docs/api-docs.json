@@ -26,7 +26,7 @@
         }
     ],
     "paths": {
-        "/account/register": {
+        "/accounts/register": {
             "post": {
                 "tags": [
                     "account"
@@ -60,7 +60,7 @@
                 }
             }
         },
-        "/account/login": {
+        "/accounts/login": {
             "post": {
                 "tags": [
                     "account"
@@ -91,7 +91,7 @@
                 }
             }
         },
-        "/account/logout": {
+        "/accounts/logout": {
             "post": {
                 "tags": [
                     "account"
@@ -109,104 +109,21 @@
                 ]
             }
         },
-        "/admin/stores/{store_id}/categories": {
+        "/stores/{store_id}/addresses": {
             "get": {
                 "tags": [
-                    "admin/categories"
+                    "addresses"
                 ],
-                "summary": "Get all Categories",
-                "operationId": "App\\Http\\Controllers\\Admin\\CategoryController::index",
+                "summary": "Get all Addreses",
+                "operationId": "App\\Http\\Controllers\\AddressController::index",
                 "parameters": [
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "description": "Per page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "parent_id",
-                        "in": "query",
-                        "description": "Parent Id",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/admin/stores/{store_id}/categories/{category_id}": {
-            "get": {
-                "tags": [
-                    "admin/categories"
-                ],
-                "summary": "Get a specific category",
-                "operationId": "App\\Http\\Controllers\\Admin\\CategoryController::show",
-                "parameters": [
-                    {
-                        "name": "store_id",
-                        "in": "path",
-                        "description": "Store Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "category_id",
-                        "in": "path",
-                        "description": "Category Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/admin/stores/{store_id}/products": {
-            "get": {
-                "tags": [
-                    "admin/products"
-                ],
-                "summary": "Get all Products",
-                "operationId": "App\\Http\\Controllers\\Admin\\ProductController::index",
-                "parameters": [
-                    {
-                        "name": "store_id",
-                        "in": "path",
-                        "description": "Store Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
@@ -230,33 +147,82 @@
                     "200": {
                         "description": ""
                     }
-                }
-            }
-        },
-        "/admin/stores/{store_id}/products/{product_id}": {
-            "get": {
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            },
+            "post": {
                 "tags": [
-                    "admin/products"
+                    "addresses"
                 ],
-                "summary": "Get a specific product",
-                "operationId": "App\\Http\\Controllers\\Admin\\ProductController::show",
+                "summary": "Create a address",
+                "operationId": "App\\Http\\Controllers\\AddressController::store",
                 "parameters": [
                     {
                         "name": "store_id",
                         "in": "path",
-                        "description": "Store Id",
+                        "description": "Store Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "full_name": {
+                                        "description": "Full name",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            }
+        },
+        "/stores/{store_id}/addresses/{address_id}": {
+            "get": {
+                "tags": [
+                    "addresses"
+                ],
+                "summary": "Get a specific address",
+                "operationId": "App\\Http\\Controllers\\AddressController::show",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
-                        "name": "product_id",
+                        "name": "address_id",
                         "in": "path",
-                        "description": "Product Id",
+                        "description": "Address Id (or slug)",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -264,21 +230,33 @@
                     "200": {
                         "description": ""
                     }
-                }
-            }
-        },
-        "/admin/users/{user_id}": {
-            "get": {
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            },
+            "delete": {
                 "tags": [
-                    "admin/users"
+                    "addresses"
                 ],
-                "summary": "Get a specific user",
-                "operationId": "App\\Http\\Controllers\\Admin\\UserController::show",
+                "summary": "Delete a address",
+                "operationId": "App\\Http\\Controllers\\AddressController::destroy",
                 "parameters": [
                     {
-                        "name": "user_id",
+                        "name": "store_id",
                         "in": "path",
-                        "description": "User Id",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address_id",
+                        "in": "path",
+                        "description": "Address Id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -289,7 +267,65 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "addresses"
+                ],
+                "summary": "Update a address",
+                "operationId": "App\\Http\\Controllers\\AddressController::update",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address_id",
+                        "in": "path",
+                        "description": "Address Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "full_name": {
+                                        "description": "Full name",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
             }
         },
         "/stores/{store_id}/brands": {
@@ -829,113 +865,98 @@
                     }
                 }
             }
-        },
-        "/users/{user_id}/settings": {
-            "get": {
-                "tags": [
-                    "user_settings"
-                ],
-                "summary": "Get all settings",
-                "operationId": "App\\Http\\Controllers\\UserSettingController::index",
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "path",
-                        "description": "User Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "description": "Per page",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "security": [
-                    {
-                        "jwt_auth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "user_settings"
-                ],
-                "summary": "Create a setting",
-                "operationId": "App\\Http\\Controllers\\UserSettingController::store",
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "path",
-                        "description": "User Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "type": {
-                                        "description": "Type",
-                                        "type": "string",
-                                        "enum": [
-                                            "string",
-                                            "number",
-                                            "bool"
-                                        ]
-                                    },
-                                    "key": {
-                                        "description": "Key",
-                                        "type": "string"
-                                    },
-                                    "value": {
-                                        "description": "Value",
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "security": [
-                    {
-                        "jwt_auth": []
-                    }
-                ]
-            }
         }
     },
     "components": {
         "schemas": {
+            "Address": {
+                "properties": {
+                    "id": {
+                        "schema": "Address",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "Address",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "Address",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "position": {
+                        "schema": "Address",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "full_name": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "email": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "country": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "province": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "city": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "region": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "line1": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "line2": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "postal_code": {
+                        "schema": "Address",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "Address",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "Address",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "Address",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "Brand": {
                 "properties": {
                     "id": {
@@ -1190,6 +1211,105 @@
                     },
                     "updated_at": {
                         "schema": "Content",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Modifier": {
+                "properties": {
+                    "id": {
+                        "schema": "Modifier",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "Modifier",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "product_id": {
+                        "schema": "Modifier",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "title": {
+                        "schema": "Modifier",
+                        "type": "string"
+                    },
+                    "choose_type": {
+                        "schema": "Modifier",
+                        "type": "string"
+                    },
+                    "choose_at_least": {
+                        "schema": "Modifier",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "choose_up_to": {
+                        "schema": "Modifier",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "deleted_at": {
+                        "schema": "Modifier",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "Modifier",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "Modifier",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "ModifierOption": {
+                "properties": {
+                    "id": {
+                        "schema": "ModifierOption",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "ModifierOption",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "slug": {
+                        "schema": "ModifierOption",
+                        "type": "string"
+                    },
+                    "name": {
+                        "schema": "ModifierOption",
+                        "type": "string"
+                    },
+                    "image_url": {
+                        "schema": "ModifierOption",
+                        "type": "string"
+                    },
+                    "description": {
+                        "schema": "ModifierOption",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "ModifierOption",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "ModifierOption",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "ModifierOption",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -1501,53 +1621,6 @@
                     }
                 },
                 "type": "object"
-            },
-            "UserSetting": {
-                "properties": {
-                    "id": {
-                        "schema": "UserSetting",
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "user_id": {
-                        "schema": "UserSetting",
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "type": {
-                        "schema": "UserSetting",
-                        "type": "string",
-                        "enum": [
-                            "string",
-                            "number",
-                            "bool"
-                        ]
-                    },
-                    "key": {
-                        "schema": "UserSetting",
-                        "type": "string"
-                    },
-                    "value": {
-                        "schema": "UserSetting",
-                        "type": "string"
-                    },
-                    "deleted_at": {
-                        "schema": "UserSetting",
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "created_at": {
-                        "schema": "UserSetting",
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "updated_at": {
-                        "schema": "UserSetting",
-                        "type": "string",
-                        "format": "date-time"
-                    }
-                },
-                "type": "object"
             }
         },
         "securitySchemes": {
@@ -1569,10 +1642,6 @@
             "description": ""
         },
         {
-            "name": "user_settings",
-            "description": ""
-        },
-        {
             "name": "stores",
             "description": ""
         },
@@ -1590,6 +1659,10 @@
         },
         {
             "name": "products",
+            "description": ""
+        },
+        {
+            "name": "addresses",
             "description": ""
         },
         {

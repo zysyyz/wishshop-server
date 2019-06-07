@@ -11,6 +11,18 @@
 |
 */
 
+$factory->define(App\Models\Address::class, function (Faker\Generator $faker) {
+    return [
+        'store_id' => 1,
+        'user_id' => 1,
+        'full_name' => $faker->name,
+        'phone_number' => $faker->phoneNumber,
+        'country' => $faker->country,
+        'city' => $faker->city,
+        'line1' => $faker->streetAddress,
+        'line2' => $faker->secondaryAddress,
+    ];
+});
 
 $factory->define(App\Models\Brand::class, function (Faker\Generator $faker) {
     return [

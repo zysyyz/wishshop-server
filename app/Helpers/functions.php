@@ -21,7 +21,7 @@ function jsonPagination($status = 200, $paginate) {
     return response($result);
 }
 
-function jsonSuccess($status = 200, $data) {
+function jsonSuccess($status = 200, $data = null) {
     $result = [
         'status' => 'success',
     ];
@@ -32,7 +32,7 @@ function jsonSuccess($status = 200, $data) {
     return response($result, $status);
 }
 
-function jsonFailure($status = 500, $e) {
+function jsonFailure($status = 500, $e = null) {
     $result = [
         'status' => 'failure',
     ];
