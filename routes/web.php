@@ -29,11 +29,14 @@ $router->get('stores/{store_id}/collections'                , 'CollectionControl
 $router->get('stores/{store_id}/collections/{collection_id}', 'CollectionController@show');
 $router->get('stores/{store_id}/products'                   , 'ProductController@index');
 $router->get('stores/{store_id}/products/{product_id}'      , 'ProductController@show');
-$router->get('stores/{user_id}/addresses'                   , 'AddressController@index');
-$router->post('stores/{user_id}/addresses'                  , 'AddressController@store');
+$router->get('stores/{store_id}/addresses'                  , 'AddressController@index');
+$router->post('stores/{store_id}/addresses'                 , 'AddressController@store');
 $router->get('stores/{store_id}/addresses/{address_id}'     , 'AddressController@show');
 $router->patch('stores/{store_id}/addresses/{address_id}'   , 'AddressController@update');
 $router->delete('stores/{store_id}/addresses/{address_id}'  , 'AddressController@destroy');
+$router->get('stores/{store_id}/favorites'                  , 'FavoriteController@index');
+$router->post('stores/{store_id}/favorites'                 , 'FavoriteController@store');
+$router->delete('stores/{store_id}/favorites/{favorite_id}' , 'FavoriteController@destroy');
 $router->get('stores/{store_id}/orders'                     , 'OrderController@index');
 $router->post('stores/{store_id}/orders'                    , 'OrderController@store');
 $router->get('stores/{store_id}/orders/{number}'            , 'OrderController@show');

@@ -114,7 +114,7 @@
                 "tags": [
                     "addresses"
                 ],
-                "summary": "Get all Addreses",
+                "summary": "Get all Addresses",
                 "operationId": "App\\Http\\Controllers\\AddressController::index",
                 "parameters": [
                     {
@@ -561,6 +561,150 @@
                 }
             }
         },
+        "/stores/{store_id}/favorites": {
+            "get": {
+                "tags": [
+                    "favorites"
+                ],
+                "summary": "Get all Favorites",
+                "operationId": "App\\Http\\Controllers\\FavoriteController::index",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Include",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "favorites"
+                ],
+                "summary": "Create a favorite",
+                "operationId": "App\\Http\\Controllers\\FavoriteController::store",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "target_type": {
+                                        "description": "Target type",
+                                        "type": "string"
+                                    },
+                                    "target_id": {
+                                        "description": "Target Id",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            }
+        },
+        "/stores/{store_id}/favorites/{favorite_id}": {
+            "delete": {
+                "tags": [
+                    "favorites"
+                ],
+                "summary": "Delete a favorite",
+                "operationId": "App\\Http\\Controllers\\FavoriteController::destroy",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "favorite_id",
+                        "in": "path",
+                        "description": "Favorite Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            }
+        },
         "/stores/{store_id}/orders": {
             "get": {
                 "tags": [
@@ -747,7 +891,12 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
             }
         },
         "/stores/{store_id}/products/{product_id}": {
@@ -781,7 +930,12 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
             }
         },
         "/stores": {
@@ -923,7 +1077,7 @@
                         "schema": "Address",
                         "type": "string"
                     },
-                    "region": {
+                    "district": {
                         "schema": "Address",
                         "type": "string"
                     },
@@ -1211,6 +1365,54 @@
                     },
                     "updated_at": {
                         "schema": "Content",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Favorite": {
+                "properties": {
+                    "id": {
+                        "schema": "Favorite",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "Favorite",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "Favorite",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "target_type": {
+                        "schema": "Favorite",
+                        "type": "string"
+                    },
+                    "target_id": {
+                        "schema": "Favorite",
+                        "type": "string"
+                    },
+                    "position": {
+                        "schema": "Favorite",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "deleted_at": {
+                        "schema": "Favorite",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "Favorite",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "Favorite",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -1663,6 +1865,10 @@
         },
         {
             "name": "addresses",
+            "description": ""
+        },
+        {
+            "name": "favorites",
             "description": ""
         },
         {

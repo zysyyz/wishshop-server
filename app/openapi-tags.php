@@ -33,6 +33,10 @@
  *     description="",
  * )
  * @OA\Tag(
+ *     name="favorites",
+ *     description="",
+ * )
+ * @OA\Tag(
  *     name="orders",
  *     description="",
  * )

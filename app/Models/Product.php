@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Auth;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,14 +61,13 @@ class Product extends Model
     use SoftDeletes;
 
     /**
-     * The "booting" method of the model.
+     * The accessors to append to the model's array form.
      *
-     * @return void
+     * @var array
      */
-    protected static function boot()
-    {
-        parent::boot();
-    }
+    protected $appends = [
+        'favorited_at',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -90,6 +91,22 @@ class Product extends Model
     protected $hidden = [
         'deleted_at',
     ];
+
+    public function getFavoritedAtAttribute()
+    {
+        if (Auth::check()) {
+            $favorite = Favorite::where([
+                'user_id' => Auth::id(),
+                'store_id' => $this->store_id,
+                'target_type' => 'product',
+                'target_id' => $this->id,
+            ])->first();
+            if ($favorite) {
+                return $favorite->updated_at->format('Y-m-d H:i:s');;
+            }
+        }
+        return null;
+    }
 
     public function contents()
     {

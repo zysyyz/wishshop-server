@@ -71,6 +71,9 @@ class ProductController extends Controller
      *     response=200,
      *     description="",
      *   ),
+     *   security={{
+     *     "jwt_auth":{}
+     *   }},
      * )
      */
     public function index(Request $request, $store_id)
@@ -130,6 +133,9 @@ class ProductController extends Controller
      *     response=200,
      *     description="",
      *   ),
+     *   security={{
+     *     "jwt_auth":{}
+     *   }},
      * )
      */
     public function show(Request $request, $store_id, $product_id)

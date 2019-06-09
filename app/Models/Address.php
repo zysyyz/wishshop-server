@@ -60,7 +60,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   type="string",
  * )
  * @OA\Property(
- *   property="region",
+ *   property="district",
  *   type="string",
  * )
  * @OA\Property(
@@ -112,7 +112,7 @@ class Address extends Model
         'country',
         'province',
         'city',
-        'region',
+        'district',
         'line1',
         'line2',
         'postal_code',

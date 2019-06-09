@@ -25,7 +25,7 @@ class AddressController extends Controller
     /**
      * @OA\Get(
      *   path="/stores/{store_id}/addresses",
-     *   summary="Get all Addreses",
+     *   summary="Get all Addresses",
      *   tags={"addresses"},
      *   @OA\Parameter(
      *     description="Store Id (or slug)",
