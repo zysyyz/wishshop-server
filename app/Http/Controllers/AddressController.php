@@ -66,8 +66,8 @@ class AddressController extends Controller
 
         $query = Address::whereRaw('1=1')
             ->where('store_id', $store_id)
-            ->orderBy('position', 'asc')
-            ->orderBy('created_at', 'desc');
+            ->orderBy('as_default', 'desc')
+            ->orderBy('updated_at', 'desc');
 
         return jsonPagination(200, $query->paginate($per_page));
     }

@@ -23,11 +23,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   format="int64",
  * )
  * @OA\Property(
- *   property="position",
- *   type="integer",
- *   format="int64",
- * )
- * @OA\Property(
  *   property="full_name",
  *   type="string",
  * )
@@ -76,6 +71,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *   type="string",
  * )
  * @OA\Property(
+ *   property="as_default",
+ *   type="boolean",
+ * )
+ * @OA\Property(
  *   property="deleted_at",
  *   type="string",
  *   format="date-time",
@@ -96,6 +95,15 @@ class Address extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'as_default' => 'boolean',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -103,7 +111,6 @@ class Address extends Model
     protected $fillable = [
         'store_id',
         'user_id',
-        'position',
         'full_name',
         'first_name',
         'last_name',
@@ -116,6 +123,7 @@ class Address extends Model
         'line1',
         'line2',
         'postal_code',
+        'as_default',
     ];
 
     /**

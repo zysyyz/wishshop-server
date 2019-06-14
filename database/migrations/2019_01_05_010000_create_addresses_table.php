@@ -17,7 +17,6 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
             $table->integer('user_id');                             // 用户Id
-            $table->integer('position')->default(0);                // 位置（当值为 0 时，代表默认地址）
             $table->string('full_name')->nullable();                // 命名
             $table->string('first_name')->nullable();               // 名字
             $table->string('last_name')->nullable();                // 姓
@@ -30,6 +29,7 @@ class CreateAddressesTable extends Migration
             $table->string('line1')->nullable();                    // 地址1（通常是街道名称）
             $table->string('line2')->nullable();                    // 地址2（通常是单位或公寓号码）
             $table->string('postal_code')->nullable();;             // 邮政编码
+            $table->boolean('as_default')->default(false);             // 作为默认地址
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1040,11 +1040,6 @@
                         "type": "integer",
                         "format": "int64"
                     },
-                    "position": {
-                        "schema": "Address",
-                        "type": "integer",
-                        "format": "int64"
-                    },
                     "full_name": {
                         "schema": "Address",
                         "type": "string"
@@ -1092,6 +1087,10 @@
                     "postal_code": {
                         "schema": "Address",
                         "type": "string"
+                    },
+                    "as_default": {
+                        "schema": "Address",
+                        "type": "boolean"
                     },
                     "deleted_at": {
                         "schema": "Address",
