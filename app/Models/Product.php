@@ -61,6 +61,15 @@ class Product extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'tags' => 'object',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -71,6 +80,7 @@ class Product extends Model
         'name',
         'image_url',
         'description',
+        'tags',
         'sku',
     ];
 
