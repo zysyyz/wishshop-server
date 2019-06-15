@@ -17,8 +17,8 @@ class CreateFavoritesTable extends Migration
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
             $table->integer('user_id');                             // 用户Id
-            $table->string('target_type')->nullable();              // 目标类型 [category, product]
-            $table->string('target_id')->nullable();                // 目标Id
+            $table->string('target_type')->nullable();              // 目标类型 [brand, category, collection, product]
+            $table->integer('target_id')->nullable();               // 目标Id
             $table->softDeletes();
             $table->timestamps();
         });

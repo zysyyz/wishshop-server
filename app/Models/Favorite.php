@@ -78,6 +78,6 @@ class Favorite extends Model
 
     public function product()
     {
-        return $this->hasOne('App\Models\Product', 'id' ,'target_id');
+        return $this->hasOne('App\Models\Product', 'id', 'target_id');
     }
 }

@@ -61,15 +61,6 @@ class Product extends Model
     use SoftDeletes;
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'favorited_at',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -91,22 +82,6 @@ class Product extends Model
     protected $hidden = [
         'deleted_at',
     ];
-
-    public function getFavoritedAtAttribute()
-    {
-        if (Auth::check()) {
-            $favorite = Favorite::where([
-                'user_id' => Auth::id(),
-                'store_id' => $this->store_id,
-                'target_type' => 'product',
-                'target_id' => $this->id,
-            ])->first();
-            if ($favorite) {
-                return $favorite->updated_at->format('Y-m-d H:i:s');;
-            }
-        }
-        return null;
-    }
 
     public function contents()
     {

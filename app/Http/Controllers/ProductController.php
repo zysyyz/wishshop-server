@@ -86,7 +86,7 @@ class ProductController extends Controller
         $include = $request->input('include');
         $query = Product::with(!$include ? [] : $include)
             ->orderBy('created_at', 'desc')
-            ->where('store_id', $store_id);
+            ->where('products.store_id', $store_id);
 
         $category_id = $request->input('category_id');
         if ($category_id) {
@@ -101,9 +101,22 @@ class ProductController extends Controller
         $q =  $request->input('q');
         if ($q) {
             $query->where(function ($subquery) use ($q) {
-                $subquery->orWhere('name', 'like', '%'.$q.'%');
-                $subquery->orWhere('summary', 'like', '%'.$q.'%');
+                $subquery->orWhere('products.name', 'like', '%'.$q.'%');
+                $subquery->orWhere('products.summary', 'like', '%'.$q.'%');
             });
+        }
+
+        if (Auth::check()) {
+            $query->leftJoin('favorites', function ($join) {
+                $join->on('products.id', '=', 'favorites.target_id')
+                    ->where('favorites.user_id', Auth::id())
+                    ->where('favorites.target_type', 'product');
+            });
+            $query->select(
+                'products.*',
+                'favorites.target_id as favorite_id',
+                'favorites.updated_at as favorited_at'
+            );
         }
 
         $per_page = $request->input('per_page');
@@ -146,14 +159,27 @@ class ProductController extends Controller
         }
 
         $include = $request->input('include');
-        $data = Product::with(!$include ? [] : $include)
-            ->where('store_id', $store_id)
+        $query = Product::with(!$include ? [] : $include)
+            ->where('products.store_id', $store_id)
             ->where(function ($query) use ($product_id) {
-                $query->where('id', $product_id);
-                $query->orWhere('slug', $product_id);
-            })
-            ->first();
+                $query->where('products.id', $product_id);
+                $query->orWhere('products.slug', $product_id);
+            });
 
+        if (Auth::check()) {
+            $query->leftJoin('favorites', function ($join) {
+                $join->on('products.id', '=', 'favorites.target_id')
+                    ->where('favorites.user_id', Auth::id())
+                    ->where('favorites.target_type', 'product');
+            });
+            $query->select(
+                'products.*',
+                'favorites.target_id as favorite_id',
+                'favorites.updated_at as favorited_at'
+            );
+        }
+
+        $data = $query->first();
         if (!$data) {
             return jsonFailure(404, 'Not found');
         }
