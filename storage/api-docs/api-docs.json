@@ -843,6 +843,169 @@
                         "jwt_auth": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Create a item",
+                "operationId": "App\\Http\\Controllers\\OrderLineItemController::store",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "number",
+                        "in": "path",
+                        "description": "Order number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "label": {
+                                        "description": "Label",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            }
+        },
+        "/stores/{store_id}/orders/{number}/items/{item_id}": {
+            "delete": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Delete a item",
+                "operationId": "App\\Http\\Controllers\\OrderLineItemController::destroy",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "number",
+                        "in": "path",
+                        "description": "Order number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "description": "Item Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Update a item",
+                "operationId": "App\\Http\\Controllers\\OrderLineItemController::update",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "number",
+                        "in": "path",
+                        "description": "Order number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "description": "Item Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "label": {
+                                        "description": "Label",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
             }
         },
         "/stores/{store_id}/products": {
@@ -936,6 +1099,56 @@
                         "jwt_auth": []
                     }
                 ]
+            }
+        },
+        "/stores/{store_id}/products/{product_id}/reviews": {
+            "get": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Get all Reviews",
+                "operationId": "App\\Http\\Controllers\\ReviewController::index",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "description": "Store Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Product Id (or slug)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
             }
         },
         "/stores": {
@@ -1690,6 +1903,59 @@
                 },
                 "type": "object"
             },
+            "Review": {
+                "properties": {
+                    "id": {
+                        "schema": "Review",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "store_id": {
+                        "schema": "Review",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "schema": "Review",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "product_id": {
+                        "schema": "Review",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "order_id": {
+                        "schema": "Review",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "content": {
+                        "schema": "Review",
+                        "type": "string"
+                    },
+                    "reate": {
+                        "schema": "Review",
+                        "type": "number"
+                    },
+                    "deleted_at": {
+                        "schema": "Review",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "schema": "Review",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "schema": "Review",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "Store": {
                 "properties": {
                     "id": {
@@ -1860,6 +2126,10 @@
         },
         {
             "name": "products",
+            "description": ""
+        },
+        {
+            "name": "reviews",
             "description": ""
         },
         {

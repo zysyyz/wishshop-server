@@ -32,9 +32,5 @@ class UserSeeder extends Seeder
             ],
         ];
         DB::table('users')->insert($users);
-
-        if (env('APP_ENV') == 'local') {
-            factory(User::class, 12)->create();
-        }
     }
 }

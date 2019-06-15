@@ -29,7 +29,7 @@ class CreateAddressesTable extends Migration
             $table->string('line1')->nullable();                    // 地址1（通常是街道名称）
             $table->string('line2')->nullable();                    // 地址2（通常是单位或公寓号码）
             $table->string('postal_code')->nullable();;             // 邮政编码
-            $table->boolean('as_default')->default(false);             // 作为默认地址
+            $table->boolean('as_default')->default(false);          // 作为默认地址
             $table->softDeletes();
             $table->timestamps();
         });

@@ -3,6 +3,8 @@
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Product;
+use App\Models\Review;
+use App\Models\User;
 
 use Illuminate\Database\Seeder;
 
@@ -15,8 +17,9 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::truncate();
         Content::truncate();
+        Product::truncate();
+        Review::truncate();
 
         $path = 'database/seeds/yslbeauty-products.json';
         $products = json_decode(file_get_contents($path), true);
@@ -31,6 +34,9 @@ class ProductSeeder extends Seeder
             $contents = $value['contents'];
             unset($value['contents']);
 
+            $reviews = $value['reviews'];
+            unset($value['reviews']);
+
             $product = Product::updateOrCreate(
                 [
                     'store_id' => 1,
@@ -39,6 +45,25 @@ class ProductSeeder extends Seeder
                 $value
             );
 
+            foreach ($reviews as $key => $value) {
+                $user_id = null;
+                if ($value['user']) {
+                    $p = [
+                        'name' => $value['user']['name'],
+                    ];
+                    $user = User::firstOrCreate($p, $p);
+                    $user_id = $user->id;
+                }
+
+                $review = array_merge($value, [
+                    'store_id' => 1,
+                    'user_id' => $user_id,
+                    'product_id' => $product->id,
+                ]);
+                unset($review['user']);
+                // unset($review['tags']);
+                Review::create($review);
+            }
 
             $contentPosition = -1;
             foreach ($contents as $key => $value) {

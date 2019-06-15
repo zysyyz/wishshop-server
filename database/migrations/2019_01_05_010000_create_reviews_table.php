@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContentsTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateContentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contents', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('store_id')->nullable();                // 商店Id
+            $table->integer('user_id')->nullable();                 // 用户Id
             $table->integer('product_id')->nullable();              // 商品Id
-            $table->integer('position')->default(0);                // 位置
-            $table->string('type')->nullable();                     // 类型
+            $table->integer('order_id')->nullable();                // 订单Id
             $table->text('content')->nullable();                    // 内容
-            $table->json('meta')->nullable();                       // 元数据
+            $table->double('rate')->default(5);                     // 评分
+            $table->json('tags')->nullable();                       // 标签
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +34,6 @@ class CreateContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('reviews');
     }
 }
