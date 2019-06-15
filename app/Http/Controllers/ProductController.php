@@ -114,7 +114,7 @@ class ProductController extends Controller
             });
             $query->select(
                 'products.*',
-                'favorites.target_id as favorite_id',
+                'favorites.id as favorite_id',
                 'favorites.updated_at as favorited_at'
             );
         }
@@ -174,7 +174,7 @@ class ProductController extends Controller
             });
             $query->select(
                 'products.*',
-                'favorites.target_id as favorite_id',
+                'favorites.id as favorite_id',
                 'favorites.updated_at as favorited_at'
             );
         }
