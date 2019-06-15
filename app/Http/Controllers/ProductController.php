@@ -110,7 +110,8 @@ class ProductController extends Controller
             $query->leftJoin('favorites', function ($join) {
                 $join->on('products.id', '=', 'favorites.target_id')
                     ->where('favorites.user_id', Auth::id())
-                    ->where('favorites.target_type', 'product');
+                    ->where('favorites.target_type', 'product')
+                    ->whereNull('favorites.deleted_at');
             });
             $query->select(
                 'products.*',
@@ -170,7 +171,8 @@ class ProductController extends Controller
             $query->leftJoin('favorites', function ($join) {
                 $join->on('products.id', '=', 'favorites.target_id')
                     ->where('favorites.user_id', Auth::id())
-                    ->where('favorites.target_type', 'product');
+                    ->where('favorites.target_type', 'product')
+                    ->whereNull('favorites.deleted_at');
             });
             $query->select(
                 'products.*',
