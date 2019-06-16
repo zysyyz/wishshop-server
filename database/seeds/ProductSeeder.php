@@ -2,6 +2,8 @@
 
 use App\Models\Category;
 use App\Models\Content;
+use App\Models\Modifier;
+use App\Models\ModifierOption;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\User;
@@ -18,6 +20,8 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Content::truncate();
+        Modifier::truncate();
+        ModifierOption::truncate();
         Product::truncate();
         Review::truncate();
 
@@ -30,6 +34,10 @@ class ProductSeeder extends Seeder
                 $value['category_id'] = $category->id;
                 unset($value['category_slug']);
             }
+
+
+            $modifiers = $value['modifiers'];
+            unset($value['modifiers']);
 
             $contents = $value['contents'];
             unset($value['contents']);
@@ -44,6 +52,25 @@ class ProductSeeder extends Seeder
                 ],
                 $value
             );
+
+            foreach ($modifiers as $key => $value) {
+                $modifier = array_merge($value, [
+                    'store_id' => 1,
+                    'product_id' => $product->id,
+                ]);
+                $options = $modifier['options'];
+                unset($modifier['options']);
+                $modifier = Modifier::create($modifier);
+
+                foreach ($options as $key => $value) {
+                    $option = array_merge($value, [
+                        'store_id' => 1,
+                        'product_id' => $product->id,
+                        'modifier_id' => $modifier->id,
+                    ]);
+                    ModifierOption::create($option);
+                }
+            }
 
             foreach ($reviews as $key => $value) {
                 $user_id = null;

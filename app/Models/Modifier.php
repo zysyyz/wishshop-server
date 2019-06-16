@@ -67,6 +67,9 @@ class Modifier extends Model
      */
     protected $fillable = [
         'title',
+        'option_type',
+        'option_format',
+        'option_unit',
         'choose_type',
         'choose_at_least',
         'choose_up_to',
@@ -80,4 +83,9 @@ class Modifier extends Model
     protected $hidden = [
         'deleted_at',
     ];
+
+    public function options()
+    {
+        return $this->hasMany('App\Models\ModifierOption');
+    }
 }

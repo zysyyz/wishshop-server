@@ -93,6 +93,11 @@ class Product extends Model
         'deleted_at',
     ];
 
+    public function modifiers()
+    {
+        return $this->hasMany('App\Models\Modifier');
+    }
+
     public function contents()
     {
         return $this->hasMany('App\Models\Content')

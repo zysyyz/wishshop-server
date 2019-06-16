@@ -17,7 +17,11 @@ class CreateModifierOptionsTable extends Migration
             $table->increments('id');
             $table->integer('store_id');                            // 商店Id
             $table->integer('product_id')->nullable();              // 商品Id
+            $table->integer('modifier_id')->nullable();             // 附加选项Id
+            $table->string('code')->nullable();                     // 选项编号
+            $table->string('image_url')->nullable();                // 图片链接（原始尺寸）
             $table->string('option_name')->nullable();              // 选项名称
+            $table->string('option_value')->nullable();             // 选项值
             $table->double('change_in_price')->default(0);          // 价格变动
             $table->softDeletes();
             $table->timestamps();
