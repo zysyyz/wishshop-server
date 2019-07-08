@@ -66,7 +66,7 @@ class AccountController extends Controller
      *   ),
      *   @OA\Response(
      *     response=200,
-     *     description="",
+     *     description="OK",
      *   ),
      * )
      */
@@ -124,7 +124,7 @@ class AccountController extends Controller
      *   ),
      *   @OA\Response(
      *     response=200,
-     *     description="",
+     *     description="OK",
      *   ),
      * )
      */
@@ -161,7 +161,7 @@ class AccountController extends Controller
      *   tags={"account"},
      *   @OA\Response(
      *     response=200,
-     *     description="",
+     *     description="OK",
      *   ),
      *   security={{
      *     "jwt_auth":{}
@@ -173,7 +173,7 @@ class AccountController extends Controller
         try {
             $this->jwtAuth->parseToken()->invalidate();
         } catch (TokenBlacklistedException $e) {
-            return jsonFailure(trans('jwt.the_token_has_been_blacklisted'), 500);
+            return jsonFailure(500, trans('jwt.the_token_has_been_blacklisted'));
         } catch (JWTException $e) {
             // 忽略该异常（Authorization为空时会发生）
         }

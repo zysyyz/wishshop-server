@@ -2,6 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "WishShop API",
+        "description": "This is WishShop server.",
         "contact": {
             "email": "lijy91@foxmail.com"
         },
@@ -10,19 +11,19 @@
     "servers": [
         {
             "url": "http://localhost:8000",
-            "description": "WishShop Server (Local)"
+            "description": "Local Server"
         },
         {
             "url": "http://127.0.0.1:8000",
-            "description": "WishShop Server (Local)"
+            "description": "Local Server"
         },
         {
             "url": "https://wishshop-api-dev.thecode.me",
-            "description": "WishShop Server (Development)"
+            "description": "Remote Server (Development)"
         },
         {
             "url": "https://wishshop-api.thecode.me",
-            "description": "WishShop Server (Production)"
+            "description": "Remote Server (Production)"
         }
     ],
     "paths": {
@@ -55,7 +56,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -86,7 +87,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -99,7 +100,7 @@
                 "operationId": "App\\Http\\Controllers\\AccountController::logout",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 },
                 "security": [

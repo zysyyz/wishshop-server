@@ -1,19 +1,19 @@
 <?php
 /**
  * @OA\Server(
- *     description="WishShop Server (Local)",
+ *     description="Local Server",
  *     url="http://localhost:8000"
  * )
  * @OA\Server(
- *     description="WishShop Server (Local)",
+ *     description="Local Server",
  *     url="http://127.0.0.1:8000"
  * )
  * @OA\Server(
- *     description="WishShop Server (Development)",
+ *     description="Remote Server (Development)",
  *     url="https://wishshop-api-dev.thecode.me"
  * )
  * @OA\Server(
- *     description="WishShop Server (Production)",
+ *     description="Remote Server (Production)",
  *     url="https://wishshop-api.thecode.me"
  * )
  */

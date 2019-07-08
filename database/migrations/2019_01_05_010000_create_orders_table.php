@@ -21,7 +21,8 @@ class CreateOrdersTable extends Migration
             $table->string('reference_number')->nullable();         // 参考编号
             $table->double('subtotal')->default(0);                 // 小计
             $table->double('total')->ndefault(0);                   // 总计
-            $table->string('status')->default('active');            // 状态 [active, deactivated, locked]
+            $table->double('number_of_items')->default(0);          // 项目数
+            $table->string('status')->default('pending');           // 状态 [pending, cancelled, completed]
             $table->softDeletes();
             $table->timestamps();
         });

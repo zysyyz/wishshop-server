@@ -1,6 +1,24 @@
 <?php
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Validation\ValidationException;
+
+function normalize($object) {
+    if ($object instanceof Arrayable) {
+        $object = $object->toArray();
+    }
+    if (is_array($object) || is_object($object)) {
+        foreach ($object as $key => $value) {
+            $newKey = camel_case($key);
+            if ($newKey !== $key) {
+                $object[$newKey] = $value;
+                unset($object[$key]);
+            }
+            $object[$newKey] = normalize($value);
+        }
+    }
+    return $object;
+};
 
 function jsonPagination($status = 200, $paginate) {
     $result = array(
@@ -18,6 +36,8 @@ function jsonPagination($status = 200, $paginate) {
         unset($pagination['prev_page_url']);
         $result['pagination'] = $pagination;
     }
+
+    $result = normalize($result);
     return response($result);
 }
 
@@ -29,6 +49,8 @@ function jsonSuccess($status = 200, $data = null) {
     if (isset($data)) {
         $result['data'] = $data;
     }
+
+    $result = normalize($result);
     return response($result, $status);
 }
 
@@ -56,5 +78,7 @@ function jsonFailure($status = 500, $e = null) {
     } elseif (is_array($e)) {
         $result['errors'] = $e;
     }
+
+    $result = normalize($result);
     return response($result, $status);
 }
