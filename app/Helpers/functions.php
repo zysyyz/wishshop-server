@@ -6,8 +6,10 @@ use Illuminate\Validation\ValidationException;
 function normalize($object) {
     if ($object instanceof Arrayable) {
         $object = $object->toArray();
+    } else if (is_object($object)) {
+        $object = (array)$object;
     }
-    if (is_array($object) || is_object($object)) {
+    if (is_array($object)) {
         foreach ($object as $key => $value) {
             $newKey = camel_case($key);
             if ($newKey !== $key) {
