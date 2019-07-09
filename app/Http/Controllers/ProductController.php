@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 
 use Auth;
@@ -90,11 +91,12 @@ class ProductController extends Controller
 
         $category_id = $request->input('category_id');
         if ($category_id) {
+            $category_ids = Category::where('id', $category_id)->orWhere('parent_id', $category_id)->select('id')->get();
             // 当前分类及包含下一层级分类添加到查询条件中
-            $query->whereIn('category_id', function($subquery) use ($category_id){
+            $query->whereIn('category_id', function($subquery) use ($category_ids){
                 $subquery->select('id')->from('categories');
-                $subquery->where('id', $category_id);
-                $subquery->orWhere('parent_id', $category_id);
+                $subquery->whereIn('id', $category_ids);
+                $subquery->orWhereIn('parent_id', $category_ids);
             });
         }
 
